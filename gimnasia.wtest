@@ -7,19 +7,26 @@ describe "rutinas" {
 //	const remarEnElDelta = // Una actividad de remo
 //	const remarEnCaminoRemeros = // Una actividad de remo comptetitivo
 //	const maratonBA = //Una maraton con intensidad 1.5
+//Punto 2: personas
+	//const  = //Una persona Sedentaria con peso 60 y tiempo de ejerciciso 5
+ 	//const bob =  // Una persona atleta con peso 40 
+
+		const correrEnLaPlaya = new Running(intensidad = 1.2)
+		const maratonBA = new Maratón()
+		const remarEnELDelta = new Remo() 
+		const remarEnCaminosRemeros = new RemoDeCompetición()
+
+		const calamardo = new Sedentaria(peso = 60, tiempo = 5)
+		const bob = new Atleta(peso=40)
 
 	test "Correr en la playa" {
-		const correrEnLaPlaya = new Running(intensidad = 1.2)
-	
 	    correrEnLaPlaya.tiempo(5)
-		assert.equals(360,correrEnLaPlaya.caloriasConsumidas())
+		assert.equals(360,calamardo.pesoPerdido(correrEnLaPlaya))
 
 		correrEnLaPlaya.tiempo(90)
-		assert.equals(10200,correrEnLaPlaya.caloriasConsumidas())
+		assert.equals(10200,calamardo.pesoPerdido(correrEnLaPlaya))
 	}
 	test "maraton BA" {
-		const maratonBA = new Maratón()
-
 		maratonBA.intensidad(1.5)
 		maratonBA.tiempo(5)
 
@@ -30,7 +37,6 @@ describe "rutinas" {
 		assert.equals(25500,maratonBA.caloriasConsumidas())
 	}
 	test "remar en el delta"{
-		const remarEnELDelta = new Remo() 
 		
 		remarEnELDelta.tiempo(5)
 		
@@ -39,8 +45,6 @@ describe "rutinas" {
 		assert.equals(9360,remarEnELDelta.caloriasConsumidas())
 	}
     test "remar en caminos remeros" {
-		const remarEnCaminosRemeros = new RemoDeCompetición()
-
         remarEnCaminosRemeros.tiempo(5)
 
 		assert.equals(510,remarEnCaminosRemeros.caloriasConsumidas())
@@ -49,17 +53,28 @@ describe "rutinas" {
 
 		assert.equals(12750,remarEnCaminosRemeros.caloriasConsumidas())
 	}
-	test "personas sedentarias" {
-		const calamardo = new Sedentaria(peso= 60, tiempo = 5)
-		const correrEnLaPlaya = new Running(intensidad = 1.2)
-		assert.equals(59498, )
+	test "Calamardo corre en la playa" {
+        calamardo.tiempo(5)
+        calamardo.aplicarRutina(correrEnLaPlaya)
+        assert.equals( 59948 , calamardo.peso() )
+}
+	test "Calamardo corre en la maraton" {
+		calamardo.aplicarRutina(maratonBA)
+        assert.equals(59.871, calamardo.peso())
 
+	}
+	test "Calamardo rema en el Delta" {
+
+		calamardo.aplicarRutina(remarEnELDelta)
+        assert.equals(59.871, calamardo.peso())
+	}
+	test "Camardo rema en caminos remeros" {
+
+		calamardo.aplicarRutina(remarEnCaminosRemeros)
+        assert.equals(59.871, calamardo.peso())
 	}
 
 
-//Punto 2: personas
-	//const  = //Una persona Sedentaria con peso 60 y tiempo de ejercicio 5
- 	//const bob =  // Una persona atleta con peso 40 
 
 //Punto 3: clubes
 	//const recreo = //un predio con correrEnLaPlaya y maratonBA

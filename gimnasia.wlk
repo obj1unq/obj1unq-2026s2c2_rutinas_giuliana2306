@@ -4,10 +4,9 @@ class Rutina {
 
     method descanso()
 
-    method caloriasConsumidas() {
-        return 100 * (tiempo - self.descanso()) * self.intensidad()
+    method caloriasConsumidas(_persona) {
+        return 100 * (_persona.tiempo() - self.descanso()) * self.intensidad()
     }
-    
 }
 
 class Running inherits Rutina {
@@ -24,8 +23,8 @@ class Running inherits Rutina {
 
 class Maratón inherits Running {
 
-    override method caloriasConsumidas() {
-        return super()* 2 
+    override method caloriasConsumidas(_persona) {
+        return super(_persona)* 2 
     }
 }
 
@@ -50,24 +49,49 @@ class RemoDeCompetición inherits Remo {
     }
 }
 
-class Persona inherits Rutina {
+class Persona {
     var property peso = 0 
+    var property tiempo = 0
 
     method caloriasPorKilo()
 
-    method pesoPerdido() {
-        return self.caloriasConsumidas() / self.caloriasPorKilo()
+    method pesoPerdido(_rutina) {
+        return _rutina.caloriasConsumidas(self) / self.caloriasPorKilo()
     }
-    method aplicarRutina() 
+    method aplicarRutina(_rutina) 
 }
 class Sedentaria inherits Persona {
 
     override method caloriasPorKilo() {
         return 7000
     }
-    override method aplicarRutina() {
-      if (peso > 50) {
-        peso = peso - self.pesoPerdido()
-      }
+    override method aplicarRutina(_rutina) {
+        self.validarAplicarRutina(_rutina)
+        peso = peso - self.pesoPerdido(_rutina)
     }
+    method validarAplicarRutina(_rutina) {
+        if (peso < 50) {
+            self.error("No alcanza el peso solicitado")
+        }
+    }
+}
+
+class Atleta inherits Persona {
+
+    override method pesoPerdido(_rutina) {
+        return super(_rutina) - 1
+    }
+    override method caloriasPorKilo() {
+        return 8000
+    }
+    override method aplicarRutina(_rutina) {
+        self.validarAplicarRutina(_rutina)
+        peso = peso - self.pesoPerdido(_rutina)
+    }
+
+    method validarAplicarRutina(_rutina) {
+            if (peso < 1000) {
+            self.error("No alcanza el peso solicitado")
+        }
+    }    
 }
