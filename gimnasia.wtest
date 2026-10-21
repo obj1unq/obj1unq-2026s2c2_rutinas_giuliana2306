@@ -2,6 +2,15 @@ import gimnasia.*
 
 describe "rutinas" {
 
+	test "Correr en la playa" {
+		const correrEnLaPlaya = new Running(intensidad = 1.2)
+	
+	    correrEnLaPlaya.tiempo(5)
+		assert.equals(360,correrEnLaPlaya.caloriasConsumidas())
+
+		correrEnLaPlaya.tiempo(90)
+		assert.equals(10200,correrEnLaPlaya.caloriasConsumidas())
+	}
 //Punto 1: rutinas
 //	const correrEnLaPlaya = // Una actividad de running con intensisdad 1.2
 //	const remarEnElDelta = // Una actividad de remo
