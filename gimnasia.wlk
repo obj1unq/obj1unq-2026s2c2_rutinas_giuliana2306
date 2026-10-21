@@ -4,8 +4,8 @@ class Rutina {
 
     method descanso()
 
-    method caloriasConsumidas(_persona) {
-        return 100 * (_persona.tiempo() - self.descanso()) * self.intensidad()
+    method caloriasConsumidas(_tiempo) {
+        return 100 * (_tiempo - self.descanso()) * self.intensidad()
     }
 }
 
@@ -51,29 +51,39 @@ class RemoDeCompetición inherits Remo {
 
 class Persona {
     var property peso = 0 
-    var property tiempo = 0
+
+    method puedeRealizarRutina(_rutina) 
+
+    method tiempo() 
 
     method caloriasPorKilo()
 
     method pesoPerdido(_rutina) {
         return _rutina.caloriasConsumidas(self) / self.caloriasPorKilo()
     }
-    method aplicarRutina(_rutina) 
+
+    method aplicarRutina(_rutina) {
+        self.validarAplicarRutina(_rutina)
+        peso = peso - self.pesoPerdido(_rutina)
+    }
+    
+
+    method validarAplicarRutina(_rutina) {
+        if (not self.puedeRealizarRutina(_rutina)) {
+            self.error("No alcanza el peso solicitado")
+        }
+    }
 }
 class Sedentaria inherits Persona {
 
     override method caloriasPorKilo() {
         return 7000
     }
-    override method aplicarRutina(_rutina) {
-        self.validarAplicarRutina(_rutina)
-        peso = peso - self.pesoPerdido(_rutina)
+    override method puedeRealizarRutina(_rutina) {
+        return peso > 50
     }
-    method validarAplicarRutina(_rutina) {
-        if (peso < 50) {
-            self.error("No alcanza el peso solicitado")
-        }
-    }
+    
+   
 }
 
 class Atleta inherits Persona {
@@ -84,16 +94,10 @@ class Atleta inherits Persona {
     override method caloriasPorKilo() {
         return 8000
     }
-    override method aplicarRutina(_rutina) {
-        self.validarAplicarRutina(_rutina)
-        peso = peso - self.pesoPerdido(_rutina)
+    override method puedeRealizarRutina(_rutina) {
+        return _rutina.caloriasConsumidas(self.tiempo()) > 10000
     }
-
-    method validarAplicarRutina(_rutina) {
-            if (peso < 1000) {
-            self.error("No alcanza el peso solicitado")
-        }
-    }    
+    
 }
 
 class Club {
@@ -101,5 +105,14 @@ class Club {
 }
 
 class ClubBarrial inherits Club {
+
+}
+
+class Predio {
+    var rutina = #{}
+
+    method agregarRutina(_rutina) {
+        rutina.add(_rutina)
+    }
 
 }
