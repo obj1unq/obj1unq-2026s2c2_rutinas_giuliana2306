@@ -16,15 +16,16 @@ describe "rutinas" {
 		const remarEnELDelta = new Remo() 
 		const remarEnCaminosRemeros = new RemoDeCompetición()
 
-		const calamardo = new Sedentaria(peso = 60, tiempo = 5)
+		
 		const bob = new Atleta(peso=40)
 
 	test "Correr en la playa" {
-	    correrEnLaPlaya.tiempo(5)
-		assert.equals(360,calamardo.pesoPerdido(correrEnLaPlaya))
-
-		correrEnLaPlaya.tiempo(90)
-		assert.equals(10200,calamardo.pesoPerdido(correrEnLaPlaya))
+        const calamardo = new Sedentaria(peso = 60, tiempo = 5)
+		assert.equals(360,correrEnLaPlaya.caloriasConsumidas(calamardo))
+	}
+	test " Correr en la playa2" {
+		const calamardo = new Sedentaria(peso = 60, tiempo = 90)
+		assert.equals(10200,correrEnLaPlaya.caloriasConsumidas(calamardo))
 	}
 	test "maraton BA" {
 		maratonBA.intensidad(1.5)

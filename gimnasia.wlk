@@ -95,3 +95,11 @@ class Atleta inherits Persona {
         }
     }    
 }
+
+class Club {
+
+}
+
+class ClubBarrial inherits Club {
+
+}
