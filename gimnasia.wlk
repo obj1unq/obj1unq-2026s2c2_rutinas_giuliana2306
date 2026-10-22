@@ -101,18 +101,21 @@ class Atleta inherits Persona {
 }
 
 class Club {
-
+    var predios = #{}
+    method mejorPredioPara(_persona) {
+        predios.max({predio => predio.totalDeCaloriasDeTodasLasRutinasPara(_persona)})
+    }
 }
 
-class ClubBarrial inherits Club {
-
-}
 
 class Predio {
-    var rutina = #{}
+    var rutinas = #{}
 
     method agregarRutina(_rutina) {
-        rutina.add(_rutina)
+        rutinas.add(_rutina)
     }
-
+    method totalDeCaloriasDeTodasLasRutinas(_persona) {
+        rutinas.sum({rutina => rutina.caloriasConsumidas(_persona)})
+    }
+    
 }
