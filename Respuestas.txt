@@ -1,0 +1,11 @@
+4. Reflexión
+1.Indicar un template method en la solución. Dónde está el template y cuales son los métodos hooks. Indicar quienes
+ implementan métodos hooks
+
+
+1.Template method : 
+
+El template esta en method realizarRutina(_rutina) define si una persona puede realizar una rutina o no para realizarla.
+
+metodos hooks: method caloriasPorKilo() y method puedeRealizarRutina(_rutina). Implementan estos
+metodos hooks las subclases sedentaria y atleta.
