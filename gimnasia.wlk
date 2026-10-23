@@ -4,15 +4,15 @@ class Rutina {
     method caloriasQuemadas(_tiempo) {
         return 100 * (_tiempo - self.descanso(_tiempo)) * self.intensidad()
     }
+    
     method descanso(_tiempo) {
         return _tiempo
     }
 }
 
 class Running inherits Rutina {
-
     override method descanso(_tiempo) {
-        if ( _tiempo > 20) {
+        if (_tiempo > 20) {
             return 5
         } else {
             return 2
@@ -21,14 +21,12 @@ class Running inherits Rutina {
 }
 
 class Maraton inherits Running {
-
     override method caloriasQuemadas(_tiempo) {
         return super(_tiempo) * 2
     }
 }
 
 class Remo inherits Rutina {
-
     override method intensidad() {
         return 1.3
     }
@@ -38,7 +36,6 @@ class Remo inherits Rutina {
 }
 
 class RemoDeCompeticion inherits Remo {
-
     override method intensidad() {
         return 1.7
     }
@@ -54,12 +51,14 @@ class Persona {
     method pesoPerdido(_rutina) {
         return _rutina.caloriasQuemadas(self.tiempoDeEjercitacion()) / self.caloriasPorKilo()
     }
+    
     method caloriasPorKilo() 
 
     method realizarRutina(_rutina) {
         self.validarPuedeRealizarRutina(_rutina)
         peso = peso - self.pesoPerdido(_rutina)
     }
+    
     method puedeRealizarRutina(_rutina)
 
     method validarPuedeRealizarRutina(_rutina) {
@@ -70,18 +69,15 @@ class Persona {
 }
 
 class Sedentaria inherits Persona {
-
     override method caloriasPorKilo() {
         return 7000
     }
     override method puedeRealizarRutina(_rutina) {
         return peso > 50
     }
-  
 }
 
 class Atleta inherits Persona {
-
     override method pesoPerdido(_rutina) {
         return super(_rutina) - 1
     }
@@ -92,7 +88,7 @@ class Atleta inherits Persona {
         return 90
     }
     override method puedeRealizarRutina(_rutina) {
-        return _rutina.caloriasQuemadas(self.tiempoDeEjercitacion())  > 10000
+        return _rutina.caloriasQuemadas(self.tiempoDeEjercitacion()) > 10000
     }
 }
 
@@ -134,5 +130,4 @@ class Predio {
     method rutinaMasExigente(_tiempo) {
         return rutinas.max({rutina => rutina.caloriasQuemadas(_tiempo)})
     }
-
 }
